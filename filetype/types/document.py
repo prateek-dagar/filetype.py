@@ -1,7 +1,3 @@
-# -*- coding: utf-8 -*-
-
-from __future__ import absolute_import
-
 from .base import Type
 
 
@@ -23,7 +19,7 @@ class ZippedDocumentBase(Type):
         if start_offset + sl > len(buf):
             return False
 
-        return buf[start_offset:start_offset + sl] == subslice
+        return buf[start_offset : start_offset + sl] == subslice
 
     def search_signature(self, buf, start, rangeNum):
         signature = b"PK\x03\x04"
@@ -70,7 +66,7 @@ class OfficeOpenXml(ZippedDocumentBase):
         # NOTE: OpenOffice/Libreoffice orders ZIP entry differently, so check the 4th file
         # https://github.com/h2non/filetype/blob/d730d98ad5c990883148485b6fd5adbdd378364a/matchers/document.go#L134
         idx = 0
-        for i in range(4):
+        for _i in range(4):
             # Search for next file header
             idx = self.search_signature(buf, idx + 4, 6000)
             if idx == -1:
@@ -83,20 +79,11 @@ class OfficeOpenXml(ZippedDocumentBase):
 
     def match_filename(self, buf, offset):
         if self.compare_bytes(buf, b"word/", offset):
-            return (
-                self.mime
-                == "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-            )
+            return self.mime == "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
         if self.compare_bytes(buf, b"ppt/", offset):
-            return (
-                self.mime
-                == "application/vnd.openxmlformats-officedocument.presentationml.presentation"
-            )
+            return self.mime == "application/vnd.openxmlformats-officedocument.presentationml.presentation"
         if self.compare_bytes(buf, b"xl/", offset):
-            return (
-                self.mime
-                == "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-            )
+            return self.mime == "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
 
 
 class Doc(Type):
@@ -108,24 +95,20 @@ class Doc(Type):
     EXTENSION = "doc"
 
     def __init__(self):
-        super(Doc, self).__init__(mime=Doc.MIME, extension=Doc.EXTENSION)
+        super().__init__(mime=Doc.MIME, extension=Doc.EXTENSION)
 
     def match(self, buf):
-        if len(buf) > 515 and buf[0:8] == b"\xD0\xCF\x11\xE0\xA1\xB1\x1A\xE1":
-            if buf[512:516] == b"\xEC\xA5\xC1\x00":
+        if len(buf) > 515 and buf[0:8] == b"\xd0\xcf\x11\xe0\xa1\xb1\x1a\xe1":
+            if buf[512:516] == b"\xec\xa5\xc1\x00":
                 return True
-            if (
-                len(buf) > 2142
-                and (
-                    b"\x00\x0A\x00\x00\x00MSWordDoc\x00\x10\x00\x00\x00Word.Document.8\x00\xF49\xB2q"
-                    in buf[2075:2142]
-                    or b"W\0o\0r\0d\0D\0o\0c\0u\0m\0e\0n\0t\0"
-                    in buf[0x580:0x598]
-                )
+            if len(buf) > 2142 and (
+                b"\x00\x0a\x00\x00\x00MSWordDoc\x00\x10\x00\x00\x00Word.Document.8\x00\xf49\xb2q" in buf[2075:2142]
+                or b"W\0o\0r\0d\0D\0o\0c\0u\0m\0e\0n\0t\0" in buf[0x580:0x598]
             ):
                 return True
             if (
-                len(buf) > 663 and buf[512:531] == b"R\x00o\x00o\x00t\x00 \x00E\x00n\x00t\x00r\x00y"
+                len(buf) > 663
+                and buf[512:531] == b"R\x00o\x00o\x00t\x00 \x00E\x00n\x00t\x00r\x00y"
                 and buf[640:663] == b"W\x00o\x00r\x00d\x00D\x00o\x00c\x00u\x00m\x00e\x00n\x00t"
             ):
                 return True
@@ -142,7 +125,7 @@ class Docx(OfficeOpenXml):
     EXTENSION = "docx"
 
     def __init__(self):
-        super(Docx, self).__init__(mime=Docx.MIME, extension=Docx.EXTENSION)
+        super().__init__(mime=Docx.MIME, extension=Docx.EXTENSION)
 
 
 class Odt(OpenDocument):
@@ -154,7 +137,7 @@ class Odt(OpenDocument):
     EXTENSION = "odt"
 
     def __init__(self):
-        super(Odt, self).__init__(mime=Odt.MIME, extension=Odt.EXTENSION)
+        super().__init__(mime=Odt.MIME, extension=Odt.EXTENSION)
 
 
 class Xls(Type):
@@ -166,21 +149,15 @@ class Xls(Type):
     EXTENSION = "xls"
 
     def __init__(self):
-        super(Xls, self).__init__(mime=Xls.MIME, extension=Xls.EXTENSION)
+        super().__init__(mime=Xls.MIME, extension=Xls.EXTENSION)
 
     def match(self, buf):
-        if len(buf) > 520 and buf[0:8] == b"\xD0\xCF\x11\xE0\xA1\xB1\x1A\xE1":
-            if buf[512:516] == b"\xFD\xFF\xFF\xFF" and (
-                buf[518] == 0x00 or buf[518] == 0x02
-            ):
+        if len(buf) > 520 and buf[0:8] == b"\xd0\xcf\x11\xe0\xa1\xb1\x1a\xe1":
+            if buf[512:516] == b"\xfd\xff\xff\xff" and (buf[518] == 0x00 or buf[518] == 0x02):
                 return True
             if buf[512:520] == b"\x09\x08\x10\x00\x00\x06\x05\x00":
                 return True
-            if (
-                len(buf) > 2095
-                and b"\xE2\x00\x00\x00\x5C\x00\x70\x00\x04\x00\x00Calc"
-                in buf[1568:2095]
-            ):
+            if len(buf) > 2095 and b"\xe2\x00\x00\x00\x5c\x00\x70\x00\x04\x00\x00Calc" in buf[1568:2095]:
                 return True
 
         return False
@@ -195,7 +172,7 @@ class Xlsx(OfficeOpenXml):
     EXTENSION = "xlsx"
 
     def __init__(self):
-        super(Xlsx, self).__init__(mime=Xlsx.MIME, extension=Xlsx.EXTENSION)
+        super().__init__(mime=Xlsx.MIME, extension=Xlsx.EXTENSION)
 
 
 class Ods(OpenDocument):
@@ -207,7 +184,7 @@ class Ods(OpenDocument):
     EXTENSION = "ods"
 
     def __init__(self):
-        super(Ods, self).__init__(mime=Ods.MIME, extension=Ods.EXTENSION)
+        super().__init__(mime=Ods.MIME, extension=Ods.EXTENSION)
 
 
 class Ppt(Type):
@@ -219,23 +196,19 @@ class Ppt(Type):
     EXTENSION = "ppt"
 
     def __init__(self):
-        super(Ppt, self).__init__(mime=Ppt.MIME, extension=Ppt.EXTENSION)
+        super().__init__(mime=Ppt.MIME, extension=Ppt.EXTENSION)
 
     def match(self, buf):
-        if len(buf) > 524 and buf[0:8] == b"\xD0\xCF\x11\xE0\xA1\xB1\x1A\xE1":
-            if buf[512:516] == b"\xA0\x46\x1D\xF0":
+        if len(buf) > 524 and buf[0:8] == b"\xd0\xcf\x11\xe0\xa1\xb1\x1a\xe1":
+            if buf[512:516] == b"\xa0\x46\x1d\xf0":
                 return True
-            if buf[512:516] == b"\x00\x6E\x1E\xF0":
+            if buf[512:516] == b"\x00\x6e\x1e\xf0":
                 return True
-            if buf[512:516] == b"\x0F\x00\xE8\x03":
+            if buf[512:516] == b"\x0f\x00\xe8\x03":
                 return True
-            if buf[512:516] == b"\xFD\xFF\xFF\xFF" and buf[522:524] == b"\x00\x00":
+            if buf[512:516] == b"\xfd\xff\xff\xff" and buf[522:524] == b"\x00\x00":
                 return True
-            if (
-                len(buf) > 2096
-                and buf[2072:2096]
-                == b"\x00\xB9\x29\xE8\x11\x00\x00\x00MS PowerPoint 97"
-            ):
+            if len(buf) > 2096 and buf[2072:2096] == b"\x00\xb9\x29\xe8\x11\x00\x00\x00MS PowerPoint 97":
                 return True
 
         return False
@@ -250,7 +223,7 @@ class Pptx(OfficeOpenXml):
     EXTENSION = "pptx"
 
     def __init__(self):
-        super(Pptx, self).__init__(mime=Pptx.MIME, extension=Pptx.EXTENSION)
+        super().__init__(mime=Pptx.MIME, extension=Pptx.EXTENSION)
 
 
 class Odp(OpenDocument):
@@ -262,4 +235,4 @@ class Odp(OpenDocument):
     EXTENSION = "odp"
 
     def __init__(self):
-        super(Odp, self).__init__(mime=Odp.MIME, extension=Odp.EXTENSION)
+        super().__init__(mime=Odp.MIME, extension=Odp.EXTENSION)

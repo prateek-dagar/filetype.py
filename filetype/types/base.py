@@ -1,12 +1,10 @@
-# -*- coding: utf-8 -*-
-
-
-class Type(object):
+class Type:
     """
     Represents the file type object inherited by
     specific file type matchers.
     Provides convenient accessor and helper methods.
     """
+
     def __init__(self, mime, extension):
         self.__mime = mime
         self.__extension = extension

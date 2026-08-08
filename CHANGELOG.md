@@ -142,7 +142,7 @@ v1.0.1 / 2019-01-11
   * Merge pull request #28 from amitlissack/expose_webm
   * expose flv and webm matchers
   * Merge pull request #25 from CloudFerro/wip-fix-byte-reading
-  * Fixed number of readed bytes in utils.py
+  * Fixed number of read bytes in utils.py
 
 v1.0.1 / 2018-04-14
 ===================

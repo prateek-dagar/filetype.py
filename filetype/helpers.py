@@ -1,11 +1,12 @@
-# -*- coding: utf-8 -*-
-
-from __future__ import absolute_import
-from .types import TYPES
 from .match import (
-    image_match, font_match, document_match,
-    video_match, audio_match, archive_match
+    archive_match,
+    audio_match,
+    document_match,
+    font_match,
+    image_match,
+    video_match,
 )
+from .types import TYPES
 
 
 def is_extension_supported(ext):

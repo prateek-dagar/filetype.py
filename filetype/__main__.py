@@ -8,25 +8,22 @@ import filetype
 def guess(path):
     kind = filetype.guess(path)
     if kind is None:
-        print('{}: File type determination failure.'.format(path))
+        print(f"{path}: File type determination failure.")
     else:
-        print('{}: {} ({})'.format(path, kind.extension, kind.mime))
+        print(f"{path}: {kind.extension} ({kind.mime})")
 
 
 def main():
     import argparse
 
-    parser = argparse.ArgumentParser(
-        prog='filetype', description='Determine type of FILEs.'
-    )
+    parser = argparse.ArgumentParser(prog="filetype", description="Determine type of FILEs.")
+    parser.add_argument("file", nargs="+", help="files, wildcard is supported")
     parser.add_argument(
-        'file', nargs='+',
-        help='files, wildcard is supported'
-    )
-    parser.add_argument(
-        '-v', '--version', action='version',
-        version=f'%(prog)s {filetype.version}',
-        help='output version information and exit'
+        "-v",
+        "--version",
+        action="version",
+        version=f"%(prog)s {filetype.version}",
+        help="output version information and exit",
     )
 
     args = parser.parse_args()
@@ -37,5 +34,5 @@ def main():
         guess(file)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

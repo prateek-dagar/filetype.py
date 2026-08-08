@@ -1,15 +1,11 @@
-# -*- coding: utf-8 -*-
-
-from __future__ import absolute_import
-
+from .types import APPLICATION as application_matchers
 from .types import ARCHIVE as archive_matchers
 from .types import AUDIO as audio_matchers
-from .types import APPLICATION as application_matchers
 from .types import DOCUMENT as document_matchers
 from .types import FONT as font_matchers
 from .types import IMAGE as image_matchers
-from .types import VIDEO as video_matchers
 from .types import TYPES
+from .types import VIDEO as video_matchers
 from .utils import get_bytes
 
 
@@ -90,7 +86,7 @@ def video_match(obj):
 def audio_match(obj):
     """
     Matches the given input against the available
-    autio type matchers.
+    audio type matchers.
 
     Args:
         obj: path to file, bytes or bytearray.

@@ -1,14 +1,4 @@
-# -*- coding: utf-8 -*-
-
-from __future__ import absolute_import
-
-from . import archive
-from . import audio
-from . import application
-from . import document
-from . import font
-from . import image
-from . import video
+from . import application, archive, audio, document, font, image, video
 from .base import Type  # noqa
 
 # Supported image types
@@ -99,9 +89,7 @@ ARCHIVE = (
 )
 
 # Supported archive container types
-APPLICATION = (
-    application.Wasm(),
-)
+APPLICATION = (application.Wasm(),)
 
 # Supported document types
 DOCUMENT = (
