@@ -5,14 +5,15 @@ version=`python -c 'import filetype; print(filetype.version)'`
 filename=filetype-`python -c 'import filetype;print(filetype.version)'`.tar.gz
 
 lint:
-	@flake8 .
+	@ruff check .
+	@ruff format --check .
 
 test: clean lint
 	@echo "Running tests ..."
 	@python -m unittest discover
 
 documentation:
-	@pdoc --html --overwrite --all-submodules --html-dir docs filetype
+	@pdoc filetype -o docs
 	@rm -rf docs/v${version}
 	@mv docs/filetype docs/v${version}
 

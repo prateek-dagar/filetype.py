@@ -1,7 +1,3 @@
-# -*- coding: utf-8 -*-
-
-from __future__ import absolute_import
-
 from .match import match
 from .types import TYPES, Type
 
@@ -93,6 +89,6 @@ def add_type(instance):
         None
     """
     if not isinstance(instance, Type):
-        raise TypeError('instance must inherit from filetype.types.Type')
+        raise TypeError("instance must inherit from filetype.types.Type")
 
     types.insert(0, instance)

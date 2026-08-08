@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 # Python 2.7 workaround
 try:
     import pathlib
@@ -21,7 +19,7 @@ def get_signature_bytes(path):
     Returns:
         First 8192 bytes of the file content as bytearray type.
     """
-    with open(path, 'rb') as fp:
+    with open(path, "rb") as fp:
         return bytearray(fp.read(_NUM_SIGNATURE_BYTES))
 
 
@@ -72,8 +70,8 @@ def get_bytes(obj):
     if isinstance(obj, pathlib.PurePath):
         return get_signature_bytes(obj)
 
-    if hasattr(obj, 'read'):
-        if hasattr(obj, 'tell') and hasattr(obj, 'seek'):
+    if hasattr(obj, "read"):
+        if hasattr(obj, "tell") and hasattr(obj, "seek"):
             start_pos = obj.tell()
             obj.seek(0)
             magic_bytes = obj.read(_NUM_SIGNATURE_BYTES)
@@ -81,4 +79,4 @@ def get_bytes(obj):
             return get_bytes(magic_bytes)
         return get_bytes(obj.read(_NUM_SIGNATURE_BYTES))
 
-    raise TypeError('Unsupported type as file input: %s' % type(obj))
+    raise TypeError(f"Unsupported type as file input: {type(obj)}")
