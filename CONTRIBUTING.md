@@ -34,7 +34,7 @@ To set up a local development environment:
 
 ## Code Quality & Style
 
-We use `ruff` to ensure a consistent code style and formatting across the project. 
+We use `ruff` to ensure a consistent code style and formatting across the project.
 
 * **Linting:** Run `ruff check .`
 * **Formatting:** Run `ruff format .`

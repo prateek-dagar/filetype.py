@@ -23,6 +23,8 @@ IMAGE = (
     image.Avif(),
     image.Qoi(),
     image.Dds(),
+    image.Cur(),
+    image.Cr3(),
 )
 
 # Supported video types
@@ -86,10 +88,20 @@ ARCHIVE = (
     archive.Elf(),
     archive.Lz4(),
     archive.Zstd(),
+    archive.Mobi(),
+    archive.Pcap(),
+    archive.Pcapng(),
+    archive.Chm(),
+    archive.Lnk(),
 )
 
 # Supported archive container types
-APPLICATION = (application.Wasm(),)
+APPLICATION = (
+    application.Wasm(),
+    application.Class(),
+    application.Dex(),
+)
+
 
 # Supported document types
 DOCUMENT = (
@@ -102,6 +114,7 @@ DOCUMENT = (
     document.Ppt(),
     document.Pptx(),
     document.Odp(),
+    document.Djvu(),
 )
 
 

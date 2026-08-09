@@ -1,3 +1,7 @@
+"""
+.. include:: ../README.md
+"""
+
 from .filetype import *  # noqa
 from .helpers import *  # noqa
 from .match import *  # noqa

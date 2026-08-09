@@ -407,3 +407,33 @@ class Dds(Type):
 
     def match(self, buf):
         return buf.startswith(b"\x44\x44\x53\x20")
+
+
+class Cur(Type):
+    """
+    Implements the Windows Cursor image type matcher.
+    """
+
+    MIME = "image/x-icon"
+    EXTENSION = "cur"
+
+    def __init__(self):
+        super().__init__(mime=Cur.MIME, extension=Cur.EXTENSION)
+
+    def match(self, buf):
+        return len(buf) > 3 and buf[0] == 0x00 and buf[1] == 0x00 and buf[2] == 0x02 and buf[3] == 0x00
+
+
+class Cr3(Type):
+    """
+    Implements the Canon Raw 3 image type matcher.
+    """
+
+    MIME = "image/x-canon-cr3"
+    EXTENSION = "cr3"
+
+    def __init__(self):
+        super().__init__(mime=Cr3.MIME, extension=Cr3.EXTENSION)
+
+    def match(self, buf):
+        return len(buf) > 11 and buf[4:12] == b"ftypcrx "
