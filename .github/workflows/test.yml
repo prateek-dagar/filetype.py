@@ -94,6 +94,7 @@ jobs:
         name: coverage_${{ matrix.os }}_${{ matrix.python-version }}
         path: coverage
 
+
 # TODO (Future CI additions):
 # 1. Integrate CodeQL Action for static security scanning:
 #    - Uses: github/codeql-action/analyze

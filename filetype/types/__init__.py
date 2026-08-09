@@ -102,6 +102,7 @@ APPLICATION = (
     application.Dex(),
 )
 
+
 # Supported document types
 DOCUMENT = (
     document.Doc(),

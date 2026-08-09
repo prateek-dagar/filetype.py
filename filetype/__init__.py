@@ -8,3 +8,4 @@ from .match import *  # noqa
 
 # Current package semver version
 __version__ = version = "1.2.0"
+

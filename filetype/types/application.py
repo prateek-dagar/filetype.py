@@ -12,8 +12,6 @@ class Wasm(Type):
 
     def match(self, buf):
         return buf[:8] == bytearray([0x00, 0x61, 0x73, 0x6D, 0x01, 0x00, 0x00, 0x00])
-
-
 class Class(Type):
     """
     Implements the Java Class file type matcher.
@@ -42,3 +40,4 @@ class Dex(Type):
 
     def match(self, buf):
         return len(buf) > 3 and buf[0:4] == b"dex\n"
+
