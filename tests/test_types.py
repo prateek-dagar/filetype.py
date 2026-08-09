@@ -159,3 +159,87 @@ class TestFileType(unittest.TestCase):
         self.assertTrue(kind is not None)
         self.assertEqual(kind.mime, "application/vnd.oasis.opendocument.presentation")
         self.assertEqual(kind.extension, "odp")
+
+    def test_guess_djvu(self):
+        buf1 = b"AT&TFORM\x00\x00\x00\x00DJVUextra_data"
+        buf2 = b"AT&TFORM\x00\x00\x00\x00DJVMextra_data"
+
+        kind1 = filetype.guess(buf1)
+        self.assertIsNotNone(kind1)
+        self.assertEqual(kind1.mime, "image/vnd.djvu")
+        self.assertEqual(kind1.extension, "djvu")
+
+        kind2 = filetype.guess(buf2)
+        self.assertIsNotNone(kind2)
+        self.assertEqual(kind2.mime, "image/vnd.djvu")
+        self.assertEqual(kind2.extension, "djvu")
+
+    def test_guess_mobi(self):
+        buf = b"\x00" * 60 + b"BOOKMOBImobi_data"
+        kind = filetype.guess(buf)
+        self.assertIsNotNone(kind)
+        self.assertEqual(kind.mime, "application/x-mobipocket-ebook")
+        self.assertEqual(kind.extension, "mobi")
+
+    def test_guess_pcap(self):
+        buf1 = b"\xd4\xc3\xb2\xa1pcap_data"
+        buf2 = b"\xa1\xb2\xc3\xd4pcap_data"
+
+        kind1 = filetype.guess(buf1)
+        self.assertIsNotNone(kind1)
+        self.assertEqual(kind1.mime, "application/vnd.tcpdump.pcap")
+        self.assertEqual(kind1.extension, "pcap")
+
+        kind2 = filetype.guess(buf2)
+        self.assertIsNotNone(kind2)
+        self.assertEqual(kind2.mime, "application/vnd.tcpdump.pcap")
+        self.assertEqual(kind2.extension, "pcap")
+
+    def test_guess_pcapng(self):
+        buf = b"\x0a\x0d\x0d\x0apcapng_data"
+        kind = filetype.guess(buf)
+        self.assertIsNotNone(kind)
+        self.assertEqual(kind.mime, "application/x-pcapng")
+        self.assertEqual(kind.extension, "pcapng")
+
+    def test_guess_chm(self):
+        buf = b"ITSFchm_data"
+        kind = filetype.guess(buf)
+        self.assertIsNotNone(kind)
+        self.assertEqual(kind.mime, "application/vnd.ms-htmlhelp")
+        self.assertEqual(kind.extension, "chm")
+
+    def test_guess_class(self):
+        buf = b"\xca\xfe\xba\xbeclass_data"
+        kind = filetype.guess(buf)
+        self.assertIsNotNone(kind)
+        self.assertEqual(kind.mime, "application/java-byte-code")
+        self.assertEqual(kind.extension, "class")
+
+    def test_guess_dex(self):
+        buf = b"dex\ndex_data"
+        kind = filetype.guess(buf)
+        self.assertIsNotNone(kind)
+        self.assertEqual(kind.mime, "application/vnd.android.dex")
+        self.assertEqual(kind.extension, "dex")
+
+    def test_guess_cur(self):
+        buf = b"\x00\x00\x02\x00cur_data"
+        kind = filetype.guess(buf)
+        self.assertIsNotNone(kind)
+        self.assertEqual(kind.mime, "image/x-icon")
+        self.assertEqual(kind.extension, "cur")
+
+    def test_guess_cr3(self):
+        buf = b"\x00\x00\x00\x18ftypcrx "
+        kind = filetype.guess(buf)
+        self.assertIsNotNone(kind)
+        self.assertEqual(kind.mime, "image/x-canon-cr3")
+        self.assertEqual(kind.extension, "cr3")
+
+    def test_guess_lnk(self):
+        buf = b"\x4c\x00\x00\x00lnk_data"
+        kind = filetype.guess(buf)
+        self.assertIsNotNone(kind)
+        self.assertEqual(kind.mime, "application/x-ms-shortcut")
+        self.assertEqual(kind.extension, "lnk")

@@ -236,3 +236,23 @@ class Odp(OpenDocument):
 
     def __init__(self):
         super().__init__(mime=Odp.MIME, extension=Odp.EXTENSION)
+
+
+class Djvu(Type):
+    """
+    Implements the DjVu document/image type matcher.
+    """
+
+    MIME = "image/vnd.djvu"
+    EXTENSION = "djvu"
+
+    def __init__(self):
+        super().__init__(mime=Djvu.MIME, extension=Djvu.EXTENSION)
+
+    def match(self, buf):
+        return (
+            len(buf) > 15
+            and buf[0:4] == b"AT&T"
+            and buf[4:8] == b"FORM"
+            and (buf[12:16] == b"DJVU" or buf[12:16] == b"DJVM")
+        )

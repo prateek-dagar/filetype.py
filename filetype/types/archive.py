@@ -596,3 +596,78 @@ class Zstd(Type):
             next_frame = buf[8 + user_data_len :]
             return self.match(next_frame)
         return False
+
+
+class Mobi(Type):
+    """
+    Implements the Mobipocket eBook archive type matcher.
+    """
+
+    MIME = "application/x-mobipocket-ebook"
+    EXTENSION = "mobi"
+
+    def __init__(self):
+        super().__init__(mime=Mobi.MIME, extension=Mobi.EXTENSION)
+
+    def match(self, buf):
+        return len(buf) > 67 and buf[60:68] == b"BOOKMOBI"
+
+
+class Pcap(Type):
+    """
+    Implements the Pcap packet capture archive type matcher.
+    """
+
+    MIME = "application/vnd.tcpdump.pcap"
+    EXTENSION = "pcap"
+
+    def __init__(self):
+        super().__init__(mime=Pcap.MIME, extension=Pcap.EXTENSION)
+
+    def match(self, buf):
+        return len(buf) > 3 and (buf[0:4] == b"\xd4\xc3\xb2\xa1" or buf[0:4] == b"\xa1\xb2\xc3\xd4")
+
+
+class Pcapng(Type):
+    """
+    Implements the Pcapng packet capture archive type matcher.
+    """
+
+    MIME = "application/x-pcapng"
+    EXTENSION = "pcapng"
+
+    def __init__(self):
+        super().__init__(mime=Pcapng.MIME, extension=Pcapng.EXTENSION)
+
+    def match(self, buf):
+        return len(buf) > 3 and buf[0:4] == b"\x0a\x0d\x0d\x0a"
+
+
+class Chm(Type):
+    """
+    Implements the Compiled HTML Help archive type matcher.
+    """
+
+    MIME = "application/vnd.ms-htmlhelp"
+    EXTENSION = "chm"
+
+    def __init__(self):
+        super().__init__(mime=Chm.MIME, extension=Chm.EXTENSION)
+
+    def match(self, buf):
+        return len(buf) > 3 and buf[0:4] == b"ITSF"
+
+
+class Lnk(Type):
+    """
+    Implements the Windows Shortcut file type matcher.
+    """
+
+    MIME = "application/x-ms-shortcut"
+    EXTENSION = "lnk"
+
+    def __init__(self):
+        super().__init__(mime=Lnk.MIME, extension=Lnk.EXTENSION)
+
+    def match(self, buf):
+        return len(buf) > 3 and buf[0] == 0x4C and buf[1] == 0x00 and buf[2] == 0x00 and buf[3] == 0x00

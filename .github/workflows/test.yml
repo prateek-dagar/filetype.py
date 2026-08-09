@@ -14,6 +14,28 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  quality:
+    name: 🧑‍🏭 Quality & Docs
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Set up Python
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install dependencies
+        run: python -m pip install tox
+
+      - name: Run pre-commit
+        uses: pre-commit/action@2c7b3805fd2a0fd8c1884dcaebf91fc102a13ecd # v3.0.1
+
+      - name: Build documentation
+        run: python -m tox -e doc
+
   setup_matrix:
     runs-on: ubuntu-latest
     outputs:
@@ -71,18 +93,6 @@ jobs:
       with:
         name: coverage_${{ matrix.os }}_${{ matrix.python-version }}
         path: coverage
-
-#   lint:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - name: Checkout
-#         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-#       - name: Set up Python
-#         uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
-#         with:
-#           python-version: '3.12'
-#       - name: Run pre-commit
-#         uses: pre-commit/action@v3.0.1
 
 # TODO (Future CI additions):
 # 1. Integrate CodeQL Action for static security scanning:
