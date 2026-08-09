@@ -236,6 +236,8 @@ class Odp(OpenDocument):
 
     def __init__(self):
         super().__init__(mime=Odp.MIME, extension=Odp.EXTENSION)
+
+
 class Djvu(Type):
     """
     Implements the DjVu document/image type matcher.
@@ -254,4 +256,3 @@ class Djvu(Type):
             and buf[4:8] == b"FORM"
             and (buf[12:16] == b"DJVU" or buf[12:16] == b"DJVM")
         )
-

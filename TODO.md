@@ -18,4 +18,3 @@
   - [-] Check signatures in [fido](https://github.com/openpreserve/fido/blob/master/fido/conf/format_extensions.xml).
   - [-] Check signatures in other tools (`Whatype`, `pyfsig`, `cigma`).
 - [ ] Add real/minimal binary sample files to [tests/fixtures/](file:///Users/prateekdagar/workspace/filetype.py/tests/fixtures) for newly added types (DjVu, Mobi, Pcap, Pcapng, Chm, Class, Dex) to make integration tests more realistic.
-

@@ -159,6 +159,7 @@ class TestFileType(unittest.TestCase):
         self.assertTrue(kind is not None)
         self.assertEqual(kind.mime, "application/vnd.oasis.opendocument.presentation")
         self.assertEqual(kind.extension, "odp")
+
     def test_guess_djvu(self):
         buf1 = b"AT&TFORM\x00\x00\x00\x00DJVUextra_data"
         buf2 = b"AT&TFORM\x00\x00\x00\x00DJVMextra_data"
@@ -242,4 +243,3 @@ class TestFileType(unittest.TestCase):
         self.assertIsNotNone(kind)
         self.assertEqual(kind.mime, "application/x-ms-shortcut")
         self.assertEqual(kind.extension, "lnk")
-

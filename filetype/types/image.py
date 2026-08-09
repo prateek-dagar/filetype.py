@@ -407,6 +407,8 @@ class Dds(Type):
 
     def match(self, buf):
         return buf.startswith(b"\x44\x44\x53\x20")
+
+
 class Cur(Type):
     """
     Implements the Windows Cursor image type matcher.
@@ -435,4 +437,3 @@ class Cr3(Type):
 
     def match(self, buf):
         return len(buf) > 11 and buf[4:12] == b"ftypcrx "
-
