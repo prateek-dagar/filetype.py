@@ -9,6 +9,7 @@ setup(
     version="1.2.0",
     description="Infer file type and MIME type of any file/buffer. No external dependencies.",
     long_description=codecs.open("README.md", "r", encoding="utf-8", errors="ignore").read(),
+    long_description_content_type="text/markdown",
     keywords="file libmagic magic infer numbers magicnumbers discovery mime type kind",
     url="https://github.com/h2non/filetype.py",
     download_url="https://github.com/h2non/filetype.py/tarball/master",
@@ -39,8 +40,8 @@ setup(
     python_requires=">=3.8",
     platforms=["any"],
     packages=find_packages(exclude=["dist", "build", "docs", "tests", "examples"]),
-    package_data={"filetype": ["LICENSE", "*.md"]},
-    zip_safe=True,
+    package_data={"filetype": ["LICENSE", "*.md", "py.typed", "*.pyi", "types/*.pyi"]},
+    zip_safe=False,
     entry_points={
         "console_scripts": ["filetype=filetype.__main__:main"],
     },

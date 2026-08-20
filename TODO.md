@@ -7,9 +7,9 @@
 - [ ] Integrate the chosen security scanner and quality gate tools into the GitHub Actions workflow (`.github/workflows/test.yml`).
 
 ## Packaging & Type Safety
-- [ ] Add type stubs (`.pyi` files) and a `py.typed` marker file for PEP 561 compliance.
-- [ ] Update packaging configuration ([setup.py](file:///Users/prateekdagar/workspace/filetype.py/setup.py), [MANIFEST.in](file:///Users/prateekdagar/workspace/filetype.py/MANIFEST.in)) to include type stubs.
-- [ ] Implement package build verification (e.g. running `twine check` or `check-manifest`) in the CI pipeline.
+- [x] Add type stubs (`.pyi` files) and a `py.typed` marker file for PEP 561 compliance.
+- [x] Update packaging configuration ([setup.py](file:///Users/prateekdagar/workspace/filetype.py/setup.py), [MANIFEST.in](file:///Users/prateekdagar/workspace/filetype.py/MANIFEST.in)) to include type stubs.
+- [x] Implement package build verification (e.g. running `twine check` or `check-manifest`) in the CI pipeline.
 
 ## File Signature Coverage Expansion
 - [-] Cross-reference signatures/magic bytes from other open-source libraries to port missing types (refer to [Issue #45](https://github.com/h2non/filetype.py/issues/45)):

@@ -1,4 +1,17 @@
 include README.md
 include LICENSE
 include CHANGELOG.md
-graft tests/
+include CONTRIBUTING.md
+include CONTRIBUTORS.md
+include Makefile
+include tox.ini
+include requirements-dev.txt
+include .coveragerc
+include .editorconfig
+include .pre-commit-config.yaml
+include .all-contributorsrc
+include TODO.md
+
+graft tests
+recursive-include examples *.py
+recursive-include filetype *.pyi py.typed

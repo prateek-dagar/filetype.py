@@ -36,6 +36,21 @@ jobs:
       - name: Build documentation
         run: python -m tox -e doc
 
+      - name: Install build & verification dependencies
+        run: python -m pip install build twine check-manifest mypy
+
+      - name: Verify package stubs with mypy
+        run: python -m mypy filetype
+
+      - name: Check package manifest
+        run: check-manifest --ignore "tests/*"
+
+      - name: Build distribution package
+        run: python -m build
+
+      - name: Verify package distribution builds
+        run: python -m twine check dist/*
+
   setup_matrix:
     runs-on: ubuntu-latest
     outputs:
