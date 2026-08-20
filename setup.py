@@ -5,7 +5,7 @@ import codecs
 from setuptools import find_packages, setup
 
 setup(
-    name="filetype",
+    name="filetype2",
     version="1.2.0",
     description="Infer file type and MIME type of any file/buffer. No external dependencies.",
     long_description=codecs.open("README.md", "r", encoding="utf-8", errors="ignore").read(),
