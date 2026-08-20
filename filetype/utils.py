@@ -1,9 +1,4 @@
-# Python 2.7 workaround
-try:
-    import pathlib
-except ImportError:
-    pass
-
+import pathlib
 
 _NUM_SIGNATURE_BYTES = 8192
 
