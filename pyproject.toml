@@ -2,6 +2,45 @@
 requires = ["setuptools>=61.0.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
+[project]
+name = "filetype"
+version = "1.2.0"
+description = "Infer file type and MIME type of any file/buffer. No external dependencies."
+readme = "README.md"
+requires-python = ">=3.8"
+license = {text = "MIT"}
+authors = [
+    {name = "Tomas Aparicio", email = "tomas@aparicio.me"}
+]
+keywords = ["file", "libmagic", "magic", "infer", "numbers", "magicnumbers", "discovery", "mime", "type", "kind"]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: Console",
+    "Environment :: Web Environment",
+    "Intended Audience :: Developers",
+    "Intended Audience :: System Administrators",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Topic :: System",
+    "Topic :: System :: Filesystems",
+    "Topic :: Utilities"
+]
+
+[project.urls]
+Homepage = "https://github.com/h2non/filetype.py"
+Download = "https://github.com/h2non/filetype.py/tarball/master"
+
+[project.scripts]
+filetype = "filetype.__main__:main"
+
 [tool.ruff]
 line-length = 120
 target-version = "py38"
